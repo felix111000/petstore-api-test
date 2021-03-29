@@ -1,0 +1,822 @@
+{
+	"info": {
+		"_postman_id": "688d25ad-47d2-4b3f-9a0d-2af0013f4723",
+		"name": "swagger_petstore",
+		"description": "This is a sample server Petstore server.  You can find out more about Swagger at [http://swagger.io](http://swagger.io) or on [irc.freenode.net, #swagger](http://swagger.io/irc/).  For this sample, you can use the api key `special-key` to test the authorization filters.\n\nContact Support:\n Email: apiteam@swagger.io",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "pet",
+			"item": [
+				{
+					"name": "Filter",
+					"item": [
+						{
+							"name": "Finds Pets by status - Invalid value",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response type is an array\", function () {\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an('array');\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"pet_status\", \"test\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/pet/findByStatus?status={{state_value}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pet",
+										"findByStatus"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "{{state_value}}",
+											"description": "(Required) Status values that need to be considered for filter"
+										}
+									]
+								},
+								"description": "Multiple status values can be provided with comma separated strings"
+							},
+							"response": []
+						},
+						{
+							"name": "Finds Pets by status available",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type is application/json\", function () {\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response type is an array\", function () {\r",
+											"    var jsonList_pet = pm.response.json();\r",
+											"    pm.expect(jsonList_pet).to.be.an('array');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Pet status is correct\", function () {\r",
+											"    var jsonList_pet = pm.response.json();\r",
+											"    for(i = 0; i < jsonList_pet.length; i++) {\r",
+											"         pm.expect(jsonList_pet[i].status).to.eql(pm.variables.get(\"state_value\"));\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json data schema is correct\", function() {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const length = jsonData.length;\r",
+											"    const schema = {\r",
+											"        \"type\": \"object\",\r",
+											"        \"properties\": {\r",
+											"            \"id\": \"int\",\r",
+											"            \"catagory\": {\r",
+											"                \"id\": \"int\",\r",
+											"                \"name\": \"string\"\r",
+											"            },\r",
+											"            \"name\": \"string\",\r",
+											"            \"photoUrls\": \"array\",\r",
+											"            \"tags\" : \"array\",\r",
+											"            \"status\" : \"string\"\r",
+											"        },\r",
+											"        \"required\": [\"id\"]\r",
+											"    }\r",
+											"    for (i = 0; i < length; i++) {\r",
+											"        pm.expect(tv4.validate(jsonData[i], schema)).to.eql(true);\r",
+											"    }\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"pet_status\", \"available\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/pet/findByStatus?status={{state_value}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pet",
+										"findByStatus"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "{{state_value}}",
+											"description": "(Required) Status values that need to be considered for filter"
+										}
+									]
+								},
+								"description": "Multiple status values can be provided with comma separated strings"
+							},
+							"response": []
+						},
+						{
+							"name": "Finds Pets by status pending",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type is application/json\", function () {\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response type is an array\", function () {\r",
+											"    var jsonList_pet = pm.response.json();\r",
+											"    pm.expect(jsonList_pet).to.be.an('array');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Pet status is correct\", function () {\r",
+											"    var jsonList_pet = pm.response.json();\r",
+											"    for(i = 0; i < jsonList_pet.length; i++) {\r",
+											"        pm.expect(jsonList_pet[i].status).to.eql(pm.variables.get(\"state_value\"));\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json data schema is correct\", function() {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const length = jsonData.length;\r",
+											"    const schema = {\r",
+											"        \"type\": \"object\",\r",
+											"        \"properties\": {\r",
+											"            \"id\": \"int\",\r",
+											"            \"catagory\": {\r",
+											"                \"id\": \"int\",\r",
+											"                \"name\": \"string\"\r",
+											"            },\r",
+											"            \"name\": \"string\",\r",
+											"            \"photoUrls\": \"array\",\r",
+											"            \"tags\" : \"array\",\r",
+											"            \"status\" : \"string\"\r",
+											"        },\r",
+											"        \"required\": [\"id\"]\r",
+											"    }\r",
+											"    for (i = 0; i < length; i++) {\r",
+											"        pm.expect(tv4.validate(jsonData[i], schema)).to.eql(true);\r",
+											"    }\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"pet_status\", \"pending\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/pet/findByStatus?status={{state_value}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pet",
+										"findByStatus"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "{{state_value}}",
+											"description": "(Required) Status values that need to be considered for filter"
+										}
+									]
+								},
+								"description": "Multiple status values can be provided with comma separated strings"
+							},
+							"response": []
+						},
+						{
+							"name": "Finds Pets by status sold",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Status test\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Content-Type is application/json\", function () {\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.eql('application/json');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response type is an array\", function () {\r",
+											"    var jsonList_pet = pm.response.json();\r",
+											"    pm.expect(jsonList_pet).to.be.an('array');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Pet status is correct\", function () {\r",
+											"    var jsonList_pet = pm.response.json();\r",
+											"    for(i = 0; i < jsonList_pet.length; i++) {\r",
+											"        pm.expect(jsonList_pet[i].status).to.eql(pm.variables.get(\"state_value\"));\r",
+											"    }\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Json data schema is correct\", function() {\r",
+											"    const jsonData = pm.response.json();\r",
+											"    const length = jsonData.length;\r",
+											"    const schema = {\r",
+											"        \"type\": \"object\",\r",
+											"        \"properties\": {\r",
+											"            \"id\": \"int\",\r",
+											"            \"catagory\": {\r",
+											"                \"id\": \"int\",\r",
+											"                \"name\": \"string\"\r",
+											"            },\r",
+											"            \"name\": \"string\",\r",
+											"            \"photoUrls\": \"array\",\r",
+											"            \"tags\" : \"array\",\r",
+											"            \"status\" : \"string\"\r",
+											"        },\r",
+											"        \"required\": [\"id\"]\r",
+											"    }\r",
+											"    for (i = 0; i < length; i++) {\r",
+											"        pm.expect(tv4.validate(jsonData[i], schema)).to.eql(true);\r",
+											"    }\r",
+											"});"
+										],
+										"type": "text/javascript"
+									}
+								},
+								{
+									"listen": "prerequest",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"pet_status\", \"sold\");"
+										],
+										"type": "text/javascript"
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{baseUrl}}/pet/findByStatus?status={{state_value}}",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"pet",
+										"findByStatus"
+									],
+									"query": [
+										{
+											"key": "status",
+											"value": "{{state_value}}"
+										}
+									]
+								},
+								"description": "Multiple status values can be provided with comma separated strings"
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Deletes a pet - Invalid ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"pet_id\", -1);\r",
+									"postman.setNextRequest(\"Find pet by ID - Pet not found\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "api_key",
+								"value": "voluptate"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/pet/{{petId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pet",
+								"{{petId}}"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find pet by ID - Pet not found",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Http status code is 404\", function () {\r",
+									"    pm.response.to.have.status(404);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json data code is 1\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(1);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json data type is error\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.type).to.eql('error');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json data message is 'Pet not found'\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql('Pet not found');\r",
+									"});"
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"pet_id\", -1);\r",
+									"postman.setNextRequest(\"Post request - Empty Data\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "apikey",
+							"apikey": [
+								{
+									"key": "key",
+									"value": "api_key",
+									"type": "string"
+								},
+								{
+									"key": "value",
+									"value": true,
+									"type": "boolean"
+								},
+								{
+									"key": "in",
+									"value": "header",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/pet/:petId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pet",
+								":petId"
+							],
+							"variable": [
+								{
+									"key": "petId",
+									"value": "{{pet_id}}"
+								}
+							]
+						},
+						"description": "Returns a single pet"
+					},
+					"response": []
+				},
+				{
+					"name": "Post request - Empty Data",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 405\", function () {\r",
+									"    pm.response.to.have.status(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json data code is 405\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(405);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json data type is unknown\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.type).to.eql('unknown');\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json data message is 'no data'\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql('no data');\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"Add a new pet\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "{{baseUrl}}/pet",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Add a new pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"New petID is expected\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"pet_id\", jsonData.id);\r",
+									"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get('pet_id'));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"Update an existing pet\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"id\": 0,\r\n  \"category\": {\r\n    \"id\": 0,\r\n    \"name\": \"string\"\r\n  },\r\n  \"name\": \"doggie\",\r\n  \"photoUrls\": [\r\n    \"string\"\r\n  ],\r\n  \"tags\": [\r\n    {\r\n      \"id\": 0,\r\n      \"name\": \"string\"\r\n    }\r\n  ],\r\n  \"status\": \"available\"\r\n}"
+						},
+						"url": {
+							"raw": "{{baseUrl}}/pet",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update an existing pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Http status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Pet status is changed\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.collectionVariables.set(\"pet_id\", jsonData.id);\r",
+									"    pm.expect(jsonData.status).to.eql(pm.collectionVariables.get('pet_status'));\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set(\"pet_status\", \"pending\");\r",
+									"postman.setNextRequest(\"Find pet by ID\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"id\": {{pet_id}},\n  \"category\": {\n    \"id\": 0,\n    \"name\": \"string\"\n  },\n  \"name\": \"doggie\",\n  \"photoUrls\": [\n    \"string\"\n  ],\n  \"tags\": [\n    {\n      \"id\": 0,\n      \"name\": \"string\"\n    }\n  ],\n  \"status\": \"{{pet_status}}\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/pet",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pet"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Find pet by ID",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Http status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"The petID is same with environment variable\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.id).to.eql(pm.collectionVariables.get(\"pet_id\"));\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json data schema is correct\", function() {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    const schema = {\r",
+									"        \"type\": \"object\",\r",
+									"        \"properties\": {\r",
+									"            \"id\": \"int\",\r",
+									"            \"catagory\": {\r",
+									"                \"id\": \"int\",\r",
+									"                \"name\": \"string\"\r",
+									"            },\r",
+									"            \"name\": \"string\",\r",
+									"            \"photoUrls\": \"array\",\r",
+									"            \"tags\" : \"array\",\r",
+									"            \"status\" : \"string\"\r",
+									"        },\r",
+									"        \"required\": [\"id\"]\r",
+									"    }\r",
+									"    pm.expect(tv4.validate(jsonData, schema)).to.eql(true);\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"Delete an existing pet\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/pet/:petId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pet",
+								":petId"
+							],
+							"variable": [
+								{
+									"key": "petId",
+									"value": "{{pet_id}}"
+								}
+							]
+						},
+						"description": "Returns a single pet"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete an existing pet",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"Status code is 200\", function () {\r",
+									"    pm.response.to.have.status(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json data code is 200\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.code).to.eql(200);\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json data type is unknown\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.type).to.eql(\"unknown\");\r",
+									"});\r",
+									"\r",
+									"pm.test(\"Json data message is petId\", function () {\r",
+									"    const jsonData = pm.response.json();\r",
+									"    pm.expect(jsonData.message).to.eql(pm.collectionVariables.get(\"pet_id\").toString());\r",
+									"});\r",
+									""
+								],
+								"type": "text/javascript"
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									"postman.setNextRequest(\"Delete a pet - Invalid ID\");"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "api_key",
+								"value": "voluptate"
+							}
+						],
+						"url": {
+							"raw": "{{baseUrl}}/pet/:petId",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"pet",
+								":petId"
+							],
+							"variable": [
+								{
+									"key": "petId",
+									"value": "{{pet_id}}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "https://petstore.swagger.io/v2"
+		},
+		{
+			"key": "pet_id",
+			"value": ""
+		},
+		{
+			"key": "pet_name",
+			"value": ""
+		},
+		{
+			"key": "pet_status",
+			"value": ""
+		}
+	]
+}
