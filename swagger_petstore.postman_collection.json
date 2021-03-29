@@ -45,7 +45,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/pet/findByStatus?status={{state_value}}",
+									"raw": "{{baseUrl}}/pet/findByStatus?status={{pet_status}}",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -56,7 +56,7 @@
 									"query": [
 										{
 											"key": "status",
-											"value": "{{state_value}}",
+											"value": "{{pet_status}}",
 											"description": "(Required) Status values that need to be considered for filter"
 										}
 									]
@@ -81,14 +81,14 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Response type is an array\", function () {\r",
-											"    var jsonList_pet = pm.response.json();\r",
-											"    pm.expect(jsonList_pet).to.be.an('array');\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an('array');\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Pet status is correct\", function () {\r",
-											"    var jsonList_pet = pm.response.json();\r",
-											"    for(i = 0; i < jsonList_pet.length; i++) {\r",
-											"         pm.expect(jsonList_pet[i].status).to.eql(pm.variables.get(\"state_value\"));\r",
+											"    var jsonData = pm.response.json();\r",
+											"    for(i = 0; i < jsonData.length; i++) {\r",
+											"         pm.expect(jsonData[i].status).to.eql(pm.variables.get(\"pet_status\"));\r",
 											"    }\r",
 											"});\r",
 											"\r",
@@ -133,7 +133,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/pet/findByStatus?status={{state_value}}",
+									"raw": "{{baseUrl}}/pet/findByStatus?status={{pet_status}}",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -144,7 +144,7 @@
 									"query": [
 										{
 											"key": "status",
-											"value": "{{state_value}}",
+											"value": "{{pet_status}}",
 											"description": "(Required) Status values that need to be considered for filter"
 										}
 									]
@@ -169,14 +169,14 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Response type is an array\", function () {\r",
-											"    var jsonList_pet = pm.response.json();\r",
-											"    pm.expect(jsonList_pet).to.be.an('array');\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an('array');\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Pet status is correct\", function () {\r",
-											"    var jsonList_pet = pm.response.json();\r",
-											"    for(i = 0; i < jsonList_pet.length; i++) {\r",
-											"        pm.expect(jsonList_pet[i].status).to.eql(pm.variables.get(\"state_value\"));\r",
+											"    var jsonData = pm.response.json();\r",
+											"    for(i = 0; i < jsonData.length; i++) {\r",
+											"        pm.expect(jsonData[i].status).to.eql(pm.variables.get(\"pet_status\"));\r",
 											"    }\r",
 											"});\r",
 											"\r",
@@ -221,7 +221,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/pet/findByStatus?status={{state_value}}",
+									"raw": "{{baseUrl}}/pet/findByStatus?status={{pet_status}}",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -232,7 +232,7 @@
 									"query": [
 										{
 											"key": "status",
-											"value": "{{state_value}}",
+											"value": "{{pet_status}}",
 											"description": "(Required) Status values that need to be considered for filter"
 										}
 									]
@@ -257,14 +257,14 @@
 											"});\r",
 											"\r",
 											"pm.test(\"Response type is an array\", function () {\r",
-											"    var jsonList_pet = pm.response.json();\r",
-											"    pm.expect(jsonList_pet).to.be.an('array');\r",
+											"    var jsonData = pm.response.json();\r",
+											"    pm.expect(jsonData).to.be.an('array');\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Pet status is correct\", function () {\r",
-											"    var jsonList_pet = pm.response.json();\r",
-											"    for(i = 0; i < jsonList_pet.length; i++) {\r",
-											"        pm.expect(jsonList_pet[i].status).to.eql(pm.variables.get(\"state_value\"));\r",
+											"    var jsonData = pm.response.json();\r",
+											"    for(i = 0; i < jsonData.length; i++) {\r",
+											"        pm.expect(jsonData[i].status).to.eql(pm.collectionVariables.get(\"pet_status\"));\r",
 											"    }\r",
 											"});\r",
 											"\r",
@@ -308,7 +308,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{baseUrl}}/pet/findByStatus?status={{state_value}}",
+									"raw": "{{baseUrl}}/pet/findByStatus?status={{pet_status}}",
 									"host": [
 										"{{baseUrl}}"
 									],
@@ -319,7 +319,7 @@
 									"query": [
 										{
 											"key": "status",
-											"value": "{{state_value}}"
+											"value": "{{pet_status}}"
 										}
 									]
 								},
@@ -363,13 +363,19 @@
 							}
 						],
 						"url": {
-							"raw": "{{baseUrl}}/pet/{{petId}}",
+							"raw": "{{baseUrl}}/pet/:petId",
 							"host": [
 								"{{baseUrl}}"
 							],
 							"path": [
 								"pet",
-								"{{petId}}"
+								":petId"
+							],
+							"variable": [
+								{
+									"key": "petId",
+									"value": "{{pet_id}}"
+								}
 							]
 						}
 					},
